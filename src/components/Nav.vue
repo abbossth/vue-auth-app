@@ -3,8 +3,7 @@
     <div class="container-fluid">
       <a class="navbar-brand">AUTH-APP</a>
       <div class="d-flex">
-        <button class="btn btn-outline-success me-2" type="button">Log In</button>
-        <button class="btn btn-sm btn-outline-secondary" type="button">Register</button>
+        <router-link class="btn btn-sm btn-secondary" to="/register">Register</router-link>
       </div>
     </div>
   </nav>
