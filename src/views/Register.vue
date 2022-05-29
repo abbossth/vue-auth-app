@@ -50,12 +50,15 @@ export default {
   },
   methods: {
     formRegister(e) {
-      this.username = e.target.elements.username.value
-      this.email = e.target.elements.email.value
-      this.phone = e.target.elements.phone.value
-      this.password = e.target.elements.password.value
-      this.name = e.target.elements.name.value
-      this.dob = e.target.elements.dob.value
+      const newUser = {
+        username: e.target.elements.username.value,
+        email: e.target.elements.email.value,
+        phone: e.target.elements.phone.value,
+        password: e.target.elements.password.value,
+        name: e.target.elements.dob.value,
+        dob: e.target.elements.dob.value,
+      }
+      console.log(newUser);
     }
   }
 }
