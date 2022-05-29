@@ -1,29 +1,23 @@
 <template>
-  <div class="row mt-4">
-    <div class="col">
+  <div class="row mt-4 w-100">
+    <div class="col-12 col-md-10">
       <div class="card p-2">
         <div class="card-body">
           <h3 class="text-center my-3">New User</h3>
-          <form @submit.prevent="formRegister">
-            <Input 
-              id="username" title="Username" name="username"
-              placeholder="abbossth"
-              v-model="username"
-              type="text" />
-            <Input id="email" title="Email" placeholder="test@mail.xyz" name="email" type="email" />
-            <Input id="phone" title="Phone" placeholder="+998912345678" type="tel" name="phone" />
-            <Input id="password" title="Password" placeholder="Password" type="password" name="password" />
-            <Input id="text" title="Name" placeholder="John Smith" type="text" name="name"/>
-            <Input id="dateOfBirth" title="Date of Birth" placeholder="" type="date" name="dob" />
-            
-            <button type="submit" class="btn btn-primary w-100">Register</button>
-          </form>
-          <p>{{ username }}</p>
-          <p>{{ email }}</p>
-          <p>{{ phone }}</p>
-          <p>{{ password }}</p>
-          <p>{{ name }}</p>
-          <p>{{ dob }}</p>
+          <ValidationObserver v-slot="{ handleSubmit }">
+            <form @submit.prevent="handleSubmit(onSubmit)">
+              <ValidationProvider name="Username" rules="required|alpha" v-slot="{ errors }">
+                <div class="form-group mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input :style="(errors.length !== 0) ? 'border-color: red;': ''" id="username" type="text" v-model="formData.username" class="form-control" placeholder="abbos.akh2002">
+                <small class="form-text text-wrap text-danger" style="font-size: 14px;">{{ errors[0] }}</small>
+              </div>
+              </ValidationProvider>
+              
+              <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+          </ValidationObserver>
+          
         </div>
       </div>
     </div>
@@ -31,34 +25,25 @@
 </template>
 
 <script>
-import Input from '../components/Input'
 export default {
   name: 'RegistrationForm',
   components: {
-    Input
   },
   data: function() {
     return {
-      username: '',
-      email: '',
-      phone: '',
-      password: '',
-      name: '',
-      dob: '',
-      error: ''
+      formData: {
+        username: '',
+        email: '',
+        phone: '',
+        password: '',
+        name: '',
+        dob: ''
+      }
     }
   },
   methods: {
-    formRegister(e) {
-      const newUser = {
-        username: e.target.elements.username.value,
-        email: e.target.elements.email.value,
-        phone: e.target.elements.phone.value,
-        password: e.target.elements.password.value,
-        name: e.target.elements.dob.value,
-        dob: e.target.elements.dob.value,
-      }
-      console.log(newUser);
+    onSubmit() {
+      console.log(this.formData);
     }
   }
 }
